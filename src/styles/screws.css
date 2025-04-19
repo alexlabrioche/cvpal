@@ -1,0 +1,67 @@
+/* Effet amélioré pour les vis sur les panneaux modulaires */
+.module-panel::before,
+.module-panel::after,
+.module-panel .screw-bottom-left,
+.module-panel .screw-bottom-right {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 0 2px #666,
+    inset 0 0 0 4px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+/* Position de chaque vis */
+.module-panel::before {
+  top: 8px;
+  left: 8px;
+}
+
+.module-panel::after {
+  top: 8px;
+  right: 8px;
+}
+
+/* Nouvelles vis en bas */
+.module-panel .screw-bottom-left {
+  bottom: 8px;
+  left: 8px;
+}
+
+.module-panel .screw-bottom-right {
+  bottom: 8px;
+  right: 8px;
+}
+
+/* Effet de fente pour tournevis en X */
+.module-panel::before::after,
+.module-panel::after::after,
+.module-panel .screw-bottom-left::after,
+.module-panel .screw-bottom-right::after {
+  content: "";
+  position: absolute;
+  background: #666;
+  width: 60%;
+  height: 2px;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.module-panel::before::before,
+.module-panel::after::before,
+.module-panel .screw-bottom-left::before,
+.module-panel .screw-bottom-right::before {
+  content: "";
+  position: absolute;
+  background: #666;
+  width: 60%;
+  height: 2px;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%) rotate(-45deg);
+}

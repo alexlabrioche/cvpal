@@ -3,10 +3,19 @@ import { useGameStore } from "../store/use-game-store";
 import { Slider } from "./ui/slider";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { ScrollArea } from "./ui/scroll-area";
-import { Separator } from "./ui/separator";
-import { X, Plus, ChevronLeft } from "lucide-react";
+import {
+  ChevronLeft,
+  Plus,
+  X,
+  Sliders,
+  Clock,
+  Tag,
+  Wrench,
+} from "lucide-react";
+import ModulePanel from "./modular-ui/ModulePanel";
+import ModuleButton from "./modular-ui/ModuleButton";
+import Jack from "./modular-ui/Jack";
+import Waveform from "./modular-ui/Waveform";
 
 interface SettingsPageProps {
   onBack: () => void;
@@ -14,7 +23,9 @@ interface SettingsPageProps {
 
 const SettingsPage: React.FC<SettingsPageProps> = ({ onBack }) => {
   const settings = useGameStore((state) => state.settings);
-  const updatePlayerCountRange = useGameStore((state) => state.updatePlayerCountRange);
+  const updatePlayerCountRange = useGameStore(
+    (state) => state.updatePlayerCountRange
+  );
   const updateTimeRange = useGameStore((state) => state.updateTimeRange);
   const addTheme = useGameStore((state) => state.addTheme);
   const removeTheme = useGameStore((state) => state.removeTheme);
@@ -23,6 +34,11 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onBack }) => {
 
   const [newTheme, setNewTheme] = useState("");
   const [newConstraint, setNewConstraint] = useState("");
+
+  // Active tab state
+  const [activeModule, setActiveModule] = useState<
+    "players" | "time" | "themes" | "constraints"
+  >("players");
 
   // Handle player count range change
   const handlePlayerCountChange = (values: number[]) => {
@@ -57,118 +73,220 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="settings-page">
-      <div className="settings-header">
-        <button className="back-button" onClick={onBack}>
-          <ChevronLeft size={24} />
-          <span>Retour</span>
-        </button>
-        <h1 className="title">Paramètres</h1>
+    <div>
+      <ModuleButton onClick={onBack} size="sm" className="back-button w-full">
+        <ChevronLeft size={18} />
+        <span>Retour</span>
+      </ModuleButton>
+      <div className="settings-modules-nav">
+        <ModuleButton
+          size="sm"
+          onClick={() => setActiveModule("players")}
+          className={activeModule === "players" ? "active" : ""}
+        >
+          <Sliders size={16} />
+          <span>Joueurs</span>
+        </ModuleButton>
+
+        <ModuleButton
+          size="sm"
+          onClick={() => setActiveModule("time")}
+          className={activeModule === "time" ? "active" : ""}
+        >
+          <Clock size={16} />
+          <span>Temps</span>
+        </ModuleButton>
+
+        <ModuleButton
+          size="sm"
+          onClick={() => setActiveModule("themes")}
+          className={activeModule === "themes" ? "active" : ""}
+        >
+          <Tag size={16} />
+          <span>Thèmes</span>
+        </ModuleButton>
+
+        <ModuleButton
+          size="sm"
+          onClick={() => setActiveModule("constraints")}
+          className={activeModule === "constraints" ? "active" : ""}
+        >
+          <Wrench size={16} />
+          <span>Contraintes</span>
+        </ModuleButton>
       </div>
 
-      <ScrollArea className="settings-content">
-        <div className="setting-section">
-          <h2>Nombre de joueurs</h2>
-          <p className="setting-description">
-            Min: {settings.playerCountRange.min} - Max: {settings.playerCountRange.max}
-          </p>
-          <Slider
-            defaultValue={[settings.playerCountRange.min, settings.playerCountRange.max]}
-            max={8}
-            min={1}
-            step={1}
-            onValueChange={handlePlayerCountChange}
-            className="my-4"
-          />
-        </div>
-
-        <Separator className="my-6" />
-
-        <div className="setting-section">
-          <h2>Temps par joueur (minutes)</h2>
-          <p className="setting-description">
-            Min: {settings.timeRange.min} - Max: {settings.timeRange.max}
-          </p>
-          <Slider
-            defaultValue={[settings.timeRange.min, settings.timeRange.max]}
-            max={15}
-            min={1}
-            step={1}
-            onValueChange={handleTimeRangeChange}
-            className="my-4"
-          />
-        </div>
-
-        <Separator className="my-6" />
-
-        <div className="setting-section">
-          <h2>Thématiques</h2>
-          <div className="tag-list">
-            {settings.themes.map((theme) => (
-              <div key={theme} className="tag">
-                <span>{theme}</span>
-                <button
-                  className="tag-remove"
-                  onClick={() => removeTheme(theme)}
-                  aria-label={`Supprimer ${theme}`}
-                >
-                  <X size={14} />
-                </button>
+      <div className="settings-modules">
+        {activeModule === "players" && (
+          <ModulePanel title="Nombre de joueurs" className="settings-module">
+            <div className="settings-module-content">
+              <div className="settings-description">
+                <p>Définir la plage du nombre de joueurs pour chaque session</p>
+                <div className="settings-value">
+                  <span>Min: {settings.playerCountRange.min}</span>
+                  <span>Max: {settings.playerCountRange.max}</span>
+                </div>
               </div>
-            ))}
-          </div>
 
-          <form onSubmit={handleAddTheme} className="add-form">
-            <Label htmlFor="add-theme" className="sr-only">
-              Ajouter une thématique
-            </Label>
-            <Input
-              id="add-theme"
-              placeholder="Ajouter une thématique"
-              value={newTheme}
-              onChange={(e) => setNewTheme(e.target.value)}
-            />
-            <Button type="submit" size="sm" variant="outline">
-              <Plus size={16} />
-            </Button>
-          </form>
-        </div>
-
-        <Separator className="my-6" />
-
-        <div className="setting-section">
-          <h2>Contraintes</h2>
-          <div className="tag-list">
-            {settings.constraints.map((constraint) => (
-              <div key={constraint} className="tag">
-                <span>{constraint}</span>
-                <button
-                  className="tag-remove"
-                  onClick={() => removeConstraint(constraint)}
-                  aria-label={`Supprimer ${constraint}`}
-                >
-                  <X size={14} />
-                </button>
+              <div className="visualizer">
+                <Waveform type="sine" color="var(--cable-red)" height={25} />
               </div>
-            ))}
-          </div>
 
-          <form onSubmit={handleAddConstraint} className="add-form">
-            <Label htmlFor="add-constraint" className="sr-only">
-              Ajouter une contrainte
-            </Label>
-            <Input
-              id="add-constraint"
-              placeholder="Ajouter une contrainte"
-              value={newConstraint}
-              onChange={(e) => setNewConstraint(e.target.value)}
-            />
-            <Button type="submit" size="sm" variant="outline">
-              <Plus size={16} />
-            </Button>
-          </form>
-        </div>
-      </ScrollArea>
+              <div className="slider-container">
+                <Slider
+                  defaultValue={[
+                    settings.playerCountRange.min,
+                    settings.playerCountRange.max,
+                  ]}
+                  max={8}
+                  min={1}
+                  step={1}
+                  onValueChange={handlePlayerCountChange}
+                  className="settings-slider"
+                />
+
+                <div className="slider-jacks">
+                  <Jack color="var(--cable-red)" active={true} />
+                  <Jack color="var(--cable-red)" active={true} />
+                </div>
+              </div>
+            </div>
+          </ModulePanel>
+        )}
+
+        {activeModule === "time" && (
+          <ModulePanel title="Temps par joueur" className="settings-module">
+            <div className="settings-module-content">
+              <div className="settings-description">
+                <p>Définir la plage de temps (en minutes) par joueur</p>
+                <div className="settings-value">
+                  <span>Min: {settings.timeRange.min}</span>
+                  <span>Max: {settings.timeRange.max}</span>
+                </div>
+              </div>
+
+              <div className="visualizer">
+                <Waveform
+                  type="sawtooth"
+                  color="var(--cable-blue)"
+                  height={25}
+                />
+              </div>
+
+              <div className="slider-container">
+                <Slider
+                  defaultValue={[
+                    settings.timeRange.min,
+                    settings.timeRange.max,
+                  ]}
+                  max={15}
+                  min={1}
+                  step={1}
+                  onValueChange={handleTimeRangeChange}
+                  className="settings-slider"
+                />
+
+                <div className="slider-jacks">
+                  <Jack color="var(--cable-blue)" active={true} />
+                  <Jack color="var(--cable-blue)" active={true} />
+                </div>
+              </div>
+            </div>
+          </ModulePanel>
+        )}
+
+        {activeModule === "themes" && (
+          <ModulePanel title="Thématiques" className="settings-module">
+            <div className="settings-module-content">
+              <div className="settings-description">
+                <p>
+                  Gérer la liste des thématiques possibles pour les sessions
+                </p>
+              </div>
+
+              <div className="tags-container">
+                {settings.themes.map((theme) => (
+                  <div key={theme} className="tag-item">
+                    <Jack color="var(--cable-yellow)" active={true} />
+                    <span>{theme}</span>
+                    <button
+                      className="tag-remove"
+                      onClick={() => removeTheme(theme)}
+                      aria-label={`Supprimer ${theme}`}
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <form onSubmit={handleAddTheme} className="add-tag-form">
+                <div className="input-container">
+                  <Label htmlFor="add-theme" className="sr-only">
+                    Ajouter une thématique
+                  </Label>
+                  <Input
+                    id="add-theme"
+                    placeholder="Ajouter une thématique"
+                    value={newTheme}
+                    onChange={(e) => setNewTheme(e.target.value)}
+                    className="module-input"
+                  />
+                </div>
+                <ModuleButton type="submit" size="sm">
+                  <Plus size={16} />
+                </ModuleButton>
+              </form>
+            </div>
+          </ModulePanel>
+        )}
+
+        {activeModule === "constraints" && (
+          <ModulePanel title="Contraintes" className="settings-module">
+            <div className="settings-module-content">
+              <div className="settings-description">
+                <p>
+                  Gérer la liste des contraintes possibles pour les sessions
+                </p>
+              </div>
+
+              <div className="tags-container">
+                {settings.constraints.map((constraint) => (
+                  <div key={constraint} className="tag-item">
+                    <Jack color="var(--cable-green)" active={true} />
+                    <span>{constraint}</span>
+                    <button
+                      className="tag-remove"
+                      onClick={() => removeConstraint(constraint)}
+                      aria-label={`Supprimer ${constraint}`}
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <form onSubmit={handleAddConstraint} className="add-tag-form">
+                <div className="input-container">
+                  <Label htmlFor="add-constraint" className="sr-only">
+                    Ajouter une contrainte
+                  </Label>
+                  <Input
+                    id="add-constraint"
+                    placeholder="Ajouter une contrainte"
+                    value={newConstraint}
+                    onChange={(e) => setNewConstraint(e.target.value)}
+                    className="module-input"
+                  />
+                </div>
+                <ModuleButton type="submit" size="sm">
+                  <Plus size={16} />
+                </ModuleButton>
+              </form>
+            </div>
+          </ModulePanel>
+        )}
+      </div>
     </div>
   );
 };

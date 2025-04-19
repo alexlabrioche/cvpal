@@ -1,0 +1,216 @@
+/* Styles pour le bouton principal modernisé */
+.mod-button-container {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mod-button {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.4),
+    0 8px 30px rgba(0, 0, 0, 0.3),
+    inset 0 2px 2px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mod-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(30, 30, 30, 1) 0%,
+    rgba(15, 15, 15, 1) 60%,
+    rgba(10, 10, 10, 1) 100%
+  );
+  z-index: -1;
+}
+
+.mod-button-inner {
+  position: relative;
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #151515, #0d0d0d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 1px 8px rgba(0, 0, 0, 0.8),
+    inset 0 -2px 2px rgba(255, 255, 255, 0.08);
+}
+
+.mod-button-content {
+  position: relative;
+  z-index: 3;
+  color: white;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  line-height: 1.3;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.mod-button-content span {
+  display: block;
+}
+
+/* Bordure fine rouge */
+.mod-button::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid rgba(255, 60, 60, 0.5);
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}
+
+/* Anneau subtil */
+.mod-button-ring {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 2px solid rgba(255, 60, 60, 0.3);
+  border-radius: 50%;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Effets d'interactivité */
+.mod-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 5px 12px rgba(0, 0, 0, 0.5),
+    0 15px 35px rgba(0, 0, 0, 0.4),
+    inset 0 2px 2px rgba(255, 255, 255, 0.07);
+}
+
+.mod-button:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mod-button:hover .mod-button-ring {
+  border-color: rgba(255, 60, 60, 0.6);
+  transform: scale(1.05);
+}
+
+.mod-button:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    0 5px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.mod-button:active .mod-button-inner {
+  transform: scale(0.98);
+}
+
+/* Effet de brillance subtil */
+.mod-button-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Effet de "glow" subtil autour du bouton */
+.mod-button-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 40, 40, 0.1);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mod-button:hover + .mod-button-glow {
+  opacity: 1;
+}
+
+/* Animation douce de pulsation pour l'anneau */
+@keyframes subtle-pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0.3; }
+}
+
+.mod-button-ring {
+  animation: subtle-pulse 4s infinite ease-in-out;
+}
+
+/* Reflet de bouton "fisheye" semblable à une lentille */
+.mod-button-inner::before {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: 
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0) 60%
+    );
+  top: 15%;
+  left: 15%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Grain texture overlay pour un aspect tactile */
+.mod-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  z-index: 4;
+  opacity: 0.02;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: overlay;
+}

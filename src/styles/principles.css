@@ -1,0 +1,172 @@
+/* Styles modernisés pour la section Principes Fondamentaux */
+
+.principles-module {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Système de coordonnées/maillage en arrière-plan */
+.principles-grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(to right, rgba(83, 109, 254, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(83, 109, 254, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Style de la forme d'onde */
+.principles-waveform {
+  height: 80px;
+  margin: 1rem 0;
+  background-color: var(--panel-dark);
+  border-radius: 4px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.principles-waveform-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Ligne de base pour la forme d'onde */
+.principles-waveform-inner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background-color: rgba(83, 109, 254, 0.3);
+  z-index: 1;
+}
+
+/* Forme d'onde personnalisée (onde carrée) */
+.square-wave {
+  position: absolute;
+  width: calc(100% - 10px);
+  left: 5px;
+  height: 60%;
+  top: 20%;
+  z-index: 2;
+  stroke: var(--cable-green);
+  stroke-width: 2;
+  fill: none;
+  filter: drop-shadow(0 0 2px rgba(0, 200, 83, 0.5));
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 0;
+  animation: pulse-wave 3s linear infinite;
+}
+
+@keyframes pulse-wave {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Container pour les principes */
+.principles-container {
+  position: relative;
+  z-index: 3;
+  margin-top: 1.5rem;
+}
+
+/* Élément de principe individuel */
+.principle-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.75rem 0;
+  transition: transform 0.2s;
+  margin-left: 1rem;
+}
+
+.principle-item:hover {
+  transform: translateX(5px);
+}
+
+/* Cercle LED */
+.principle-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--led-active);
+  margin-right: 0.5rem;
+  box-shadow: 0 0 5px var(--led-active);
+  animation: principle-led-pulse 2s infinite alternate;
+}
+
+@keyframes principle-led-pulse {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Texte du principe */
+.principle-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--label-text);
+  letter-spacing: 0.5px;
+}
+
+/* Supprime les lignes de connexion qui ne sont plus nécessaires après la simplification */
+
+/* Animation de balayage sur la forme d'onde */
+.wave-scanner {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 200, 83, 0.2),
+    transparent
+  );
+  animation: scan 3s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes scan {
+  0% { left: -100px; }
+  100% { left: 100%; }
+}
+
+/* Métriques de la forme d'onde */
+.wave-metrics {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(118, 255, 3, 0.7);
+  z-index: 4;
+}
+
+.metric-item {
+  margin-bottom: 2px;
+}
+
+/* Détails technologiques */
+.tech-details {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(118, 255, 3, 0.7);
+  z-index: 4;
+}
+
+/* Supprime les points de connexion aux vis qui ne sont plus nécessaires */
