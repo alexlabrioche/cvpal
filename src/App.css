@@ -1,0 +1,180 @@
+/* Base styles for app container */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/* Home page styles */
+.home-page, .result-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.main-button-container {
+  margin: 2rem 0;
+}
+
+.generate-button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.settings-button-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.settings-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Settings page styles */
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.setting-section {
+  margin-bottom: 2rem;
+}
+
+.setting-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.setting-description {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.tag-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Result page styles */
+.result-content {
+  width: 100%;
+  max-width: 500px;
+}
+
+.result-card {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-item {
+  margin-bottom: 1rem;
+}
+
+.result-item h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+}
+
+.result-item p {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.button-container {
+  margin-top: 2rem;
+}
+
+.back-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
