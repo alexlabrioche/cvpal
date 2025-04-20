@@ -1,12 +1,13 @@
 import React from "react";
 
 interface ModuleButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
   color?: string;
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 const ModuleButton: React.FC<ModuleButtonProps> = ({

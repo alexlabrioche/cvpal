@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Settings } from "lucide-react";
 import ModulePanel from "./modular-ui/ModulePanel";
 import ModuleButton from "./modular-ui/ModuleButton";
 import ModButton from "./modular-ui/ModButton";
-import Waveform from "./modular-ui/Waveform";
 
 interface HomePageProps {
   onGenerateSession: () => void;
@@ -14,31 +13,6 @@ const HomePage: React.FC<HomePageProps> = ({
   onGenerateSession,
   onOpenSettings,
 }) => {
-  const [waveformType, setWaveformType] = useState<
-    "sine" | "square" | "sawtooth" | "triangle"
-  >("sine");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWaveformType((prev) => {
-        switch (prev) {
-          case "sine":
-            return "square";
-          case "square":
-            return "sawtooth";
-          case "sawtooth":
-            return "triangle";
-          case "triangle":
-            return "sine";
-          default:
-            return "sine";
-        }
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div>
       <div className="modules-grid">

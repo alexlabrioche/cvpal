@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, Cpu, Clock, Zap, Bookmark } from "lucide-react";
+import { Cpu, Clock, Zap, Bookmark } from "lucide-react";
 import type { GameSession } from "../store/use-game-store";
 import { formatTime } from "../lib/utils";
 import ModulePanel from "./modular-ui/ModulePanel";
 import ModuleButton from "./modular-ui/ModuleButton";
-import Waveform from "./modular-ui/Waveform";
 import Jack from "./modular-ui/Jack";
 
 interface ResultPageProps {
@@ -168,7 +167,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ session, onBackToHome }) => {
               <div className="led active"></div>
             </div>
             <div className="result-value-container">
-              <Jack active={analysisComplete} color="var(--cable-red)" />
+              <Jack active={analysisComplete} color="var(--cable-green)" />
               <p className="result-value">{session.playerCount}</p>
             </div>
           </div>
@@ -180,7 +179,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ session, onBackToHome }) => {
               <div className="led active"></div>
             </div>
             <div className="result-value-container">
-              <Jack active={analysisComplete} color="var(--cable-blue)" />
+              <Jack active={analysisComplete} color="var(--cable-yellow)" />
               <p className="result-value">{formatTime(session.totalTime)}</p>
             </div>
           </div>
@@ -192,7 +191,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ session, onBackToHome }) => {
               <div className="led active"></div>
             </div>
             <div className="result-value-container">
-              <Jack active={analysisComplete} color="var(--cable-yellow)" />
+              <Jack active={analysisComplete} color="var(--cable-blue)" />
               <p className="result-value">{session.theme}</p>
             </div>
           </div>
@@ -204,7 +203,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ session, onBackToHome }) => {
               <div className="led active"></div>
             </div>
             <div className="result-value-container">
-              <Jack active={analysisComplete} color="var(--cable-green)" />
+              <Jack active={analysisComplete} color="var(--cable-red)" />
               <p className="result-value">{session.constraint}</p>
             </div>
           </div>
