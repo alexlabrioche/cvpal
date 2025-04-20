@@ -324,11 +324,6 @@ h6 {
   margin-bottom: 0.5rem;
 }
 
-/* Styles pour les principes fondamentaux */
-.principles-module {
-  margin-top: 2rem;
-}
-
 .principles-container {
   padding-top: 1rem;
   display: flex;
@@ -415,6 +410,24 @@ h6 {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+.result-module.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result-module.pulse-effect {
+  animation: pulse-module 0.5s ease-in-out 6 alternate;
+}
+
+@keyframes pulse-module {
+  0% {
+    box-shadow: 0 0 0 rgba(183, 28, 28, 0);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(183, 28, 28, 0.8);
+  }
+}
+
 .result-module.active {
   opacity: 1;
   transform: translateY(0);
@@ -424,6 +437,16 @@ h6 {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.result-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.result-row .result-item {
+  flex: 1;
+  min-width: 0; /* For proper flex behavior */
 }
 
 .result-item {
@@ -471,6 +494,116 @@ h6 {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+}
+
+/* Styles pour le countdown */
+.countdown-display {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+.countdown-finished .countdown-time {
+  color: var(--led-standby);
+  text-shadow: 0 0 10px var(--led-standby);
+}
+
+.countdown-label.blink {
+  animation: blink 1s infinite;
+  color: var(--led-standby);
+  opacity: 1;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.countdown-value-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.countdown-value {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.countdown-timer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.countdown-time {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 4rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--label-text);
+}
+
+.countdown-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+
+.countdown-ready {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.countdown-controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.countdown-button {
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.countdown-button.counting {
+  background-color: var(--led-standby) !important;
+  box-shadow: 0 0 15px rgba(183, 28, 28, 0.3);
+}
+
+.reset-button {
+  background-color: var(--panel-light);
+  border: 1px solid var(--cable-yellow);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .new-session-button {
@@ -827,5 +960,13 @@ h6 {
 
   .result-value {
     font-size: 1.25rem;
+  }
+
+  .countdown-time {
+    font-size: 3rem;
+  }
+
+  .result-row {
+    flex-direction: row;
   }
 }

@@ -26,6 +26,12 @@ function App() {
     setCurrentPage('home')
   }
   
+  // Handler for regenerating a new session
+  const handleRegenerateSession = () => {
+    generateSession()
+    // We stay on the result page
+  }
+  
   // Handler for navigating to settings
   const handleOpenSettings = () => {
     setCurrentPage('settings')
@@ -49,6 +55,7 @@ function App() {
         <ResultPage 
           session={currentSession}
           onBackToHome={handleBackToHome}
+          onRegenerateSession={handleRegenerateSession}
         />
       )}
       
